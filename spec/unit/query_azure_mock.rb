@@ -46,7 +46,7 @@ module QueryAzureMock
       Chef::Log.info 'calling web service:' + name
       if verb == 'get' || verb == nil
         retval = ''
-        if name == 'ags'
+        if name == 'affinitygroups'
           retval = Nokogiri::XML readFile('list_affinitygroups.xml')
         elsif name == 'images'
           retval = Nokogiri::XML readFile('list_images.xml')
@@ -85,7 +85,10 @@ module QueryAzureMock
         @getverb = verb
         @getbody = body
       elsif verb == 'post'
-        if name == 'hostedservices'
+        if name == 'affinitygroups'
+          retval = Nokogiri::XML readFile('post_success.xml')
+          @receivedXML = body
+        elsif name == 'hostedservices'
           retval = Nokogiri::XML readFile('post_success.xml')
           @receivedXML = body
         elsif name == 'hostedservices/unknown_yet/deployments'
